@@ -1,0 +1,71 @@
+Q1. What is Dataverse?
+Dataverse is a cloud-based data storage system used in Microsoft Power Platform. It allows us to store and manage business data in an organized and secure way. Instead of creating a database from scratch, Dataverse already provides structure, security, and integration with Power Apps, Power Automate, and other Microsoft tools.
+
+In Dataverse, tables are used to store data about specific things, such as Customers or Orders. Columns are the fields inside a table that hold information, like customer name, email, or order date. Relationships connect tables together so that related data can be linked and used easily across the system.
+
+Customer Management System – Relationship.
+
+For a Customer Management system, the relationship between Customer and Orders should be 1:N (one-to-many).
+
+This is because one customer can place many orders, but each order is associated with only one customer. Using a one-to-many relationship keeps the data accurate and makes it easier to track customer orders and generate reports.
+
+
+Q2. What is the difference between Standard and Custom tables
+Standard tables are those table which are already provided by microsoft dynamics 365 we do not need to create our own these are the standard one and custom tables are those which are build by us for a specific usecase like for Stocks price and detail
+
+
+Q3. Explain Security Roles and Business Units in D365. 
+In Dynamics 365, Security Roles are used to control what a user is allowed to do in the system. A security role defines permissions such as whether a user can create, read, update, or delete records. These permissions can apply at different levels, like only their own records, records within their business unit, 
+
+Business Units are used to organize users and data within an organization. They usually represent departments, teams, or different branches of a company.
+
+Q4. What is Field-Level Security? 
+Field level Security is a kind of security which we generally use on columns of a particular table so that the column data remains safe. Like in an employee table only HR are allow to edit the salary account
+
+
+Q5. Difference between System View and Personal View.
+A System View is created by a system administrator or customizer and is available to all users (or selected security roles) in the organization. It is used for standard business purposes, such as showing all active customers or all open orders. Users cannot edit or delete system views; they can only use them.
+
+A Personal View is created by individual users for their own use. It allows users to filter, sort, and display data in a way that suits their personal work needs. Personal views are visible only to the user who created them, unless they choose to share them with others. Users can edit or delete their own personal views.
+
+
+Q6. What are Business Rules?
+Business Rules in Dynamics 365 are used to apply logic and validations to data without writing any code. They help enforce business policies directly on forms and records. For example, a business rule can make a field mandatory, show or hide a field, lock a field, or automatically set a value based on certain conditions.
+
+
+Q7. What is the use of JavaScript in D365? 
+JavaScript in Dynamics 365 is used to add custom behavior to forms that cannot be achieved using out-of-the-box features like business rules. It allows developers to control how forms behave when users interact with them.
+
+
+Q8. Explain OnLoad, OnSave, and OnChange events. 
+onLoad Events are those events which triggers on loading of form
+onSave Events are those events which triggers after we save the form
+onChange events are those events which triggers onChanging in any fields of the form
+
+
+Q9. What is a Plugin and where does it execute?
+A plugin in Dynamics 365 is a piece of custom code written in C# that runs on the server when a specific event happens, such as creating, updating, or deleting a record. Plugins execute within the D365 server pipeline, which means they run securely on the server side and apply business logic consistently, no matter how the data is changed (UI, API, or integrations).
+
+Q10. Difference between Classic Workflow and Power Automate. 
+Classic Workflow is a legacy automation feature in Dynamics 365. It is mainly used to automate simple business processes like updating fields, sending emails, or creating records. Classic workflows usually run in the background on the D365 server and are triggered by record events such as create or update. They are more technical, less flexible, and Microsoft is slowly moving away from them.
+
+Power Automate is the modern automation tool used across the Microsoft Power Platform. It is cloud-based and provides a low-code, user-friendly interface. Power Automate can connect not only to Dynamics 365 but also to many other services like Outlook, SharePoint, Teams, and third-party applications. It supports more complex logic, approvals, scheduled flows, and real-time integrations.
+
+
+Q11. What are Triggers and Actions in Power Automate? 
+In Power Automate, triggers are the starting point of a flow. A trigger defines when the flow should run. For example, a flow can be triggered when a record is created or updated in Dataverse, when an email is received, or on a scheduled time.
+
+Actions are the steps that run after the trigger. They define what the flow will do once it starts. Actions can be used to create or update records, send emails, post messages in Teams, get data from another system, or perform calculations.
+
+
+Q12. What is D365 Web API and why is it used?
+The D365 Web API is a RESTful service that allows external applications and custom code to interact with Dynamics 365 data. It is used to perform operations like creating, reading, updating, and deleting records in Dataverse using standard HTTP methods such as GET, POST, PUT, and DELETE.
+
+Q13. Explain Managed vs Unmanaged Solutions. 
+An Unmanaged Solution is mainly used during development. It allows full access to all components, meaning developers can add, edit, or delete solution items directly. Changes made in an unmanaged solution affect the system immediately, which makes it suitable for development and testing environments. However, it does not provide protection for components.
+
+A Managed Solution is used for production environments. Once a solution is managed, its components are locked and cannot be modified directly. This helps protect the system and ensures stability. Managed solutions also support clean uninstalling, which removes all components added by the solution without affecting existing system data.
+
+
+
+
