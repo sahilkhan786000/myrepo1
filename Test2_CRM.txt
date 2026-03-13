@@ -55,3 +55,44 @@ function hideCreatedOnColumn(primaryControl) {
     });
  
 }
+
+
+
+
+
+
+async function getColumnsWithDisplayNames(entityName, columns) {
+ 
+    const result = [];
+ 
+    for (let columnName of columns) {
+ 
+        const url = `?$filter=LogicalName eq '${entityName}'&$expand=Attributes($filter=LogicalName eq '${columnName}';$select=LogicalName;$expand=DisplayName)`;
+ 
+        try {
+ 
+            const response = await Xrm.WebApi.retrieveMultipleRecords("EntityDefinitions", url);
+ 
+            const attribute = response.entities[0]?.Attributes?.[0];
+ 
+            const displayName =
+                attribute?.DisplayName?.UserLocalizedLabel?.Label || columnName;
+ 
+            result.push({
+                display_name: displayName,
+                logical_name: columnName
+            });
+ 
+        } catch (error) {
+ 
+            console.error("Error fetching metadata for", columnName, error);
+ 
+            result.push({
+                display_name: columnName,
+                logical_name: columnName
+            });
+        }
+    }
+ 
+    return result;
+}
