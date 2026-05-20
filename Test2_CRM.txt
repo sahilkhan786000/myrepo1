@@ -1,98 +1,10 @@
-function hideCreatedOnColumn(primaryControl) {
- 
-    var gridContext = primaryControl.getGrid();
- 
-    if (!gridContext) {
-        console.log("Grid not found");
-        return;
-    }
- 
-    var viewSelector = primaryControl.getViewSelector();
-    var currentView = viewSelector.getCurrentView();
- 
-    var viewId = currentView.id.replace(/[{}]/g, "");
-    var viewType = currentView.entityType; // savedquery or userquery
- 
-    console.log("View Type:", viewType);
-    console.log("View Id:", viewId);
- 
-    Xrm.WebApi.retrieveRecord(viewType, viewId, "?$select=layoutxml").then(function(result) {
- 
-        var layoutXml = result.layoutxml;
- 
-        var parser = new DOMParser();
-        var xmlDoc = parser.parseFromString(layoutXml, "text/xml");
- 
-        var cells = xmlDoc.getElementsByTagName("cell");
- 
-        for (var i = cells.length - 1; i >= 0; i--) {
- 
-            if (cells[i].getAttribute("name") === "createdon") {
-                cells[i].parentNode.removeChild(cells[i]);
-            }
- 
-        }
- 
-        var serializer = new XMLSerializer();
-        var updatedLayout = serializer.serializeToString(xmlDoc);
- 
-        var data = {
-            layoutxml: updatedLayout
-        };
- 
-        Xrm.WebApi.updateRecord(viewType, viewId, data).then(function () {
- 
-            console.log("View updated");
- 
-            gridContext.refresh();
- 
-        }).catch(function(error){
-            console.error("Update Error:", error);
-        });
- 
-    }).catch(function(error){
-        console.error("Retrieve Error:", error);
-    });
- 
-}
+I am working D365 powerapp model driven apps
+there is main grid now 
+i want to show custome html popup which is list combination of two cells
 
+in grid i have fields
 
+transaction Income and Structuring Income 
+i want to implement feature where i wan tot show aggregated trsnaction income and agrragted structurng fee as two cells in bottom of grid just belwo ther corresponidng columns
 
-
-
-
-async function getColumnsWithDisplayNames(entityName, columns) {
- 
-    const result = [];
- 
-    for (let columnName of columns) {
- 
-        const url = `?$filter=LogicalName eq '${entityName}'&$expand=Attributes($filter=LogicalName eq '${columnName}';$select=LogicalName;$expand=DisplayName)`;
- 
-        try {
- 
-            const response = await Xrm.WebApi.retrieveMultipleRecords("EntityDefinitions", url);
- 
-            const attribute = response.entities[0]?.Attributes?.[0];
- 
-            const displayName =
-                attribute?.DisplayName?.UserLocalizedLabel?.Label || columnName;
- 
-            result.push({
-                display_name: displayName,
-                logical_name: columnName
-            });
- 
-        } catch (error) {
- 
-            console.error("Error fetching metadata for", columnName, error);
- 
-            result.push({
-                display_name: columnName,
-                logical_name: columnName
-            });
-        }
-    }
- 
-    return result;
-}
+can we show that two aggragte cells or layer as overlay just belwo the grid?
